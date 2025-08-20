@@ -7,10 +7,12 @@ version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
+    maven("https://mvn.devos.one/releases")
 }
 
 dependencies {
     testImplementation(kotlin("test"))
+    implementation("io.github.dockyardmc:dockyard:0.10.6")
 }
 
 tasks.test {
