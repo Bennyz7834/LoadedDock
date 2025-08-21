@@ -9,7 +9,7 @@ LoadedDock is a library extension to [**DockyardMC**](https://github.com/Dockyar
 ## Features
 
 - **displayParticleLine** - Displays a line of particles from one location to another to a player.
-- **setVectorBetweenLocations - Returns a Vector3d of two locations.
+- **setVectorBetweenLocations** - Returns a Vector3d of two locations.
 
 ## Setup
 
