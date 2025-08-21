@@ -18,5 +18,5 @@ LoadedDock is a library extension to [**DockyardMC**](https://github.com/Dockyar
 
 ## Setup
 
-*TO-DO*
+*TO-DO - UNFINISHED*
 
