@@ -25,20 +25,16 @@ fun Player.displayParticleLine(particle: Particle, startLocation: Location, endL
 
 }
 
+
 fun World.displayParticleLine(particle: Particle, startLocation: Location, endLocation: Location, effectSpacing: Float) {
 
-    val vectorBetween = Vector3d(startLocation.x - endLocation.x, startLocation.y - endLocation.y, startLocation.z - endLocation.z)
-    startLocation.setDirection(vectorBetween)
+    this.players.displayParticleLine(particle, startLocation, endLocation, effectSpacing)
 
-    val maxDistance = startLocation.distance(endLocation)
-    var currentDistance = 0.0f
+}
 
-    while (currentDistance <= maxDistance) {
 
-        val displayLocation = startLocation.add(0.0f, 0.0f, effectSpacing)
-        spawnParticle(particle = particle, location = displayLocation)
+fun Collection<Player>.displayParticleLine(particle: Particle, startLocation: Location, endLocation: Location, effectSpacing: Float) {
 
-        currentDistance += effectSpacing
-    }
+    this.forEach {player -> player.displayParticleLine(particle, startLocation, endLocation, effectSpacing)}
 
 }
