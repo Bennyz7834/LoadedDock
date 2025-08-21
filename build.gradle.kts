@@ -3,11 +3,13 @@ plugins {
 }
 
 group = "io.github.loadeddock"
-version = "1.0-SNAPSHOT"
+version = "1.0.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
     maven("https://mvn.devos.one/releases")
+    maven("https://maven.noxcrew.com/public")
+    maven("https://jitpack.io")
 }
 
 dependencies {
