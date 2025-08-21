@@ -15,7 +15,7 @@ LoadedDock is a library extension to [**DockyardMC**](https://github.com/Dockyar
 - **setVectorBetweenLocations** - Returns a Vector3d of two locations.
 
 ### Location
-- **setRandomLoccation** Returns a Location with random values in the range of the specified locations.
+- **setRandomLocation** - Returns a Location with random values in the range of the specified locations.
 
 ---
 
