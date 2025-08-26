@@ -15,9 +15,10 @@ fun Player.displayParticleLine(particle: Particle, startLocation: Location, endL
     val maxDistance = startLocation.distance(endLocation)
     var currentDistance = 0.0f
 
+    val stepVec = currentLocation.getDirection(false).normalized() * Vector3d(effectSpacing)
+
     while (currentDistance <= maxDistance) {
 
-        val stepVec = currentLocation.getDirection(false).normalized() * Vector3d(effectSpacing)
         currentLocation = currentLocation.add(stepVec)
         spawnParticle(particle = particle, location = currentLocation)
 
