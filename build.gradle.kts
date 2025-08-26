@@ -14,7 +14,7 @@ repositories {
 
 dependencies {
     testImplementation(kotlin("test"))
-    implementation("io.github.dockyardmc:dockyard:0.10.6")
+    implementation("io.github.dockyardmc:dockyard:0.10.7")
 }
 
 tasks.test {
