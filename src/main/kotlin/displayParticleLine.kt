@@ -3,36 +3,39 @@ package io.github.loadeddock
 import io.github.dockyardmc.player.Player
 import io.github.dockyardmc.world.World
 import io.github.dockyardmc.location.Location
+import io.github.dockyardmc.maths.vectors.Vector3d
 import io.github.dockyardmc.particles.spawnParticle
 import io.github.dockyardmc.registry.registries.Particle
 
-fun Player.displayParticleLine(particle: Particle, startLocation: Location, endLocation: Location, effectSpacing: Float) {
+fun Player.displayParticleLine(particle: Particle, startLocation: Location, endLocation: Location, effectSpacing: Double = 0.1) {
 
     val vectorBetween = setVectorBetweenLocations(startLocation, endLocation)
-    startLocation.setDirection(vectorBetween)
+    var currentLocation = startLocation.setDirection(vectorBetween)
 
     val maxDistance = startLocation.distance(endLocation)
     var currentDistance = 0.0f
 
     while (currentDistance <= maxDistance) {
 
-        val displayLocation = startLocation.add(0.0f, 0.0f, effectSpacing)
-        spawnParticle(particle = particle, location = displayLocation)
+        var stepVec = currentLocation.getDirection(false).normalized() * Vector3d(effectSpacing)
+        currentLocation.add(stepVec)
+        spawnParticle(particle = particle, location = currentLocation)
 
-        currentDistance += effectSpacing
+        currentDistance += effectSpacing.toFloat()
+
     }
 
 }
 
 
-fun World.displayParticleLine(particle: Particle, startLocation: Location, endLocation: Location, effectSpacing: Float) {
+fun World.displayParticleLine(particle: Particle, startLocation: Location, endLocation: Location, effectSpacing: Double) {
 
     this.players.displayParticleLine(particle, startLocation, endLocation, effectSpacing)
 
 }
 
 
-fun Collection<Player>.displayParticleLine(particle: Particle, startLocation: Location, endLocation: Location, effectSpacing: Float) {
+fun Collection<Player>.displayParticleLine(particle: Particle, startLocation: Location, endLocation: Location, effectSpacing: Double) {
 
     this.forEach {player -> player.displayParticleLine(particle, startLocation, endLocation, effectSpacing)}
 
