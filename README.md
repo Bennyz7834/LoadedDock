@@ -16,6 +16,7 @@ LoadedDock is a library extension to [**DockyardMC**](https://github.com/Dockyar
 
 ### Location
 - **setRandomLocation** - Returns a Location with random values in the range of the specified locations.
+- **raycastFromLocation** - blockRaycast but doesn't return null when it doesn't hit anything and has an option to pass through non air blocks.
 
 ---
 
