@@ -5,25 +5,54 @@ import io.github.dockyardmc.location.blockRaycast
 import io.github.dockyardmc.maths.vectors.Vector3d
 import io.github.dockyardmc.world.block.Block
 
-fun raycastFromLocation(origin: Location, direction: Vector3d, maxDistance: Double, stepSize: Double = 0.1, passBlocks: Boolean): Pair<Location, Block> {
+fun raycastFromLocation(origin: Location, direction: Vector3d, maxDistance: Double, stepSize: Double = 0.1, passableBlocks: Array<Block> = emptyArray()): Pair<Location, Block> {
 
-    if (!passBlocks) {
+    var travelledDistance = 0.0
+    var currentLocation = origin
+    var distanceRemain = maxDistance
+    val stepVec = direction.normalized() * Vector3d(stepSize)
 
-        val ray = blockRaycast(origin, direction, maxDistance, stepSize)
+    if (passableBlocks.isNotEmpty()) {
 
-        if (ray != null) {
-            return ray
-        } else {
-            val location = origin.add(direction.normalized() * Vector3d(maxDistance))
-            val block = Block.AIR
-            return Pair(location, block)
+        while (travelledDistance < maxDistance) {
+
+            if (passableBlocks.contains(currentLocation.block)) {
+
+                currentLocation = currentLocation.add(stepVec)
+                travelledDistance += stepSize
+                distanceRemain -= stepSize
+                continue
+
+            }
+
+            var ray = blockRaycast(currentLocation, direction, distanceRemain, stepSize)
+
+            if (ray != null) {
+
+                currentLocation = ray.first
+                travelledDistance += currentLocation.distance(origin)
+                distanceRemain -= currentLocation.distance(origin)
+
+            } else {
+
+                val location = origin.add(direction.normalized() * Vector3d(maxDistance))
+                return Pair(location, Block.AIR)
+            }
+
         }
+        return Pair(currentLocation, currentLocation.block)
 
     }
-    else {
+
+    val ray = blockRaycast(origin, direction, maxDistance, stepSize)
+
+    if (ray != null) {
+        return ray
+
+    } else {
+
         val location = origin.add(direction.normalized() * Vector3d(maxDistance))
-        val block = Block.AIR
-        return Pair(location, block)
+        return Pair(location, location.block)
     }
 
 }
